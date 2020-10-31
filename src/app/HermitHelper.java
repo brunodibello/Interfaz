@@ -1,8 +1,6 @@
 package app;
 
-import java.io.File;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,13 +9,9 @@ import javax.swing.JComboBox;
 
 import org.semanticweb.HermiT.Configuration;
 import org.semanticweb.HermiT.Reasoner;
-import org.semanticweb.HermiT.cli.CommandLine;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.InferenceType;
-import org.semanticweb.owlapi.util.AutoIRIMapper;
-
-import uk.ac.manchester.cs.owl.owlapi.OWLClassImpl;
 
 public class HermitHelper {
 	
@@ -119,11 +113,74 @@ public class HermitHelper {
 				OWLAxiom subClassOf_DX_objectAllValuesFrom_detailD_DDij = factory.getOWLSubClassOfAxiom((OWLClassExpression) DX_Class, objectAllValuesFrom_detailD_DDij);
 				ontologyManager.addAxiom(ontology, subClassOf_DX_objectAllValuesFrom_detailD_DDij);
 				
-				//
+				//ClassAssertion DetDef ddij
+				OWLEntity DetDef_Class = factory.getOWLEntity(EntityType.CLASS, IRI.create("DetDef"));
+				OWLAxiom classAssertion_DetDef_ddij = factory.getOWLClassAssertionAxiom((OWLClassExpression) DetDef_Class, (OWLNamedIndividual) ddij_NamedIndividual);
+				ontologyManager.addAxiom(ontology, classAssertion_DetDef_ddij);
+				
+				//ObjectPropertyAssertion detailDefD dx ddij
+				OWLEntity detailDefD_ObjectProperty = factory.getOWLEntity(EntityType.OBJECT_PROPERTY, IRI.create("detailDefD"));
+				OWLAxiom objectPropertyAssertion_detailDefD_dx_ddij = factory.getOWLObjectPropertyAssertionAxiom((OWLObjectPropertyExpression) detailDefD_ObjectProperty, (OWLNamedIndividual) dx_NamedIndividual, (OWLNamedIndividual) ddij_NamedIndividual);
+				ontologyManager.addAxiom(ontology, objectPropertyAssertion_detailDefD_dx_ddij);
+				
+				//ObjectPropertyAssertion detailDefD dx ddij
+				OWLEntity account_ObjectProperty = factory.getOWLEntity(EntityType.OBJECT_PROPERTY, IRI.create("account"));
+				OWLEntity ddij_value_NamedIndividual = factory.getOWLEntity(EntityType.NAMED_INDIVIDUAL, IRI.create(defRows.get(i).getDebeFields().get(j).getName()));
+				differentNamedIndividuals.add((OWLNamedIndividual) ddij_value_NamedIndividual);
+				OWLAxiom objectPropertyAssertion_account_dx_ddij = factory.getOWLObjectPropertyAssertionAxiom((OWLObjectPropertyExpression) account_ObjectProperty, (OWLNamedIndividual) ddij_NamedIndividual, (OWLNamedIndividual) ddij_value_NamedIndividual);
+				ontologyManager.addAxiom(ontology, objectPropertyAssertion_account_dx_ddij);
+				
+				//Metamodelling ddij DDij
+				OWLAxiom metamodelling_DDij_ddij = factory.getOWLMetamodellingAxiom((OWLClassExpression) DDij_Class, (OWLNamedIndividual) ddij_NamedIndividual);
+				ontologyManager.addAxiom(ontology, metamodelling_DDij_ddij);
 				
 			}
 			
-			for (JComboBox haberes : defRows.get(i).getHaberFields()) {
+			for (int j=0; j<defRows.get(i).getHaberFields().size(); j++) {
+				
+				//Declaration DHij
+				OWLEntity DHij_Class = factory.getOWLEntity(EntityType.CLASS, IRI.create("DH"+i+j));
+				disjointDebeHaberClasses.add((OWLClassExpression) DHij_Class);
+				OWLAxiom declare_DHij = factory.getOWLDeclarationAxiom(DHij_Class);
+				ontologyManager.addAxiom(ontology, declare_DHij);
+				
+				//dhij individual Declaration
+				OWLEntity dhij_NamedIndividual = factory.getOWLEntity(EntityType.NAMED_INDIVIDUAL, IRI.create("dh"+i+j));
+				differentNamedIndividuals.add((OWLNamedIndividual) dhij_NamedIndividual);
+				OWLAxiom declare_dhij = factory.getOWLDeclarationAxiom(dhij_NamedIndividual);
+				ontologyManager.addAxiom(ontology, declare_dhij);
+				
+				//SubClassOf DHij Det
+				OWLEntity Det_Class = factory.getOWLEntity(EntityType.CLASS, IRI.create("Det"));
+				OWLAxiom subClass_DHij_Det = factory.getOWLSubClassOfAxiom((OWLClassExpression) DHij_Class, (OWLClassExpression) Det_Class);
+				ontologyManager.addAxiom(ontology, subClass_DHij_Det);
+				
+				//SubClassOf DX ObjectAllValuesFrom detailC DHij
+				OWLEntity detailC_ObjectProperty = factory.getOWLEntity(EntityType.OBJECT_PROPERTY, IRI.create("detailC"));
+				OWLObjectAllValuesFrom objectAllValuesFrom_detailC_DHij = factory.getOWLObjectAllValuesFrom((OWLObjectPropertyExpression) detailC_ObjectProperty, (OWLClassExpression) DHij_Class);
+				OWLAxiom subClassOf_DX_objectAllValuesFrom_detailC_DHij = factory.getOWLSubClassOfAxiom((OWLClassExpression) DX_Class, objectAllValuesFrom_detailC_DHij);
+				ontologyManager.addAxiom(ontology, subClassOf_DX_objectAllValuesFrom_detailC_DHij);
+				
+				//ClassAssertion DetDef dhij
+				OWLEntity DetDef_Class = factory.getOWLEntity(EntityType.CLASS, IRI.create("DetDef"));
+				OWLAxiom classAssertion_DetDef_dhij = factory.getOWLClassAssertionAxiom((OWLClassExpression) DetDef_Class, (OWLNamedIndividual) dhij_NamedIndividual);
+				ontologyManager.addAxiom(ontology, classAssertion_DetDef_dhij);
+				
+				//ObjectPropertyAssertion detailDefC dx dhij
+				OWLEntity detailDefC_ObjectProperty = factory.getOWLEntity(EntityType.OBJECT_PROPERTY, IRI.create("detailDefC"));
+				OWLAxiom objectPropertyAssertion_detailDefC_dx_dhij = factory.getOWLObjectPropertyAssertionAxiom((OWLObjectPropertyExpression) detailDefC_ObjectProperty, (OWLNamedIndividual) dx_NamedIndividual, (OWLNamedIndividual) dhij_NamedIndividual);
+				ontologyManager.addAxiom(ontology, objectPropertyAssertion_detailDefC_dx_dhij);
+				
+				//ObjectPropertyAssertion detailDefC dx dhij
+				OWLEntity account_ObjectProperty = factory.getOWLEntity(EntityType.OBJECT_PROPERTY, IRI.create("account"));
+				OWLEntity dhij_value_NamedIndividual = factory.getOWLEntity(EntityType.NAMED_INDIVIDUAL, IRI.create(defRows.get(i).getHaberFields().get(j).getName()));
+				differentNamedIndividuals.add((OWLNamedIndividual) dhij_value_NamedIndividual);
+				OWLAxiom objectPropertyAssertion_account_dx_dhij = factory.getOWLObjectPropertyAssertionAxiom((OWLObjectPropertyExpression) account_ObjectProperty, (OWLNamedIndividual) dhij_NamedIndividual, (OWLNamedIndividual) dhij_value_NamedIndividual);
+				ontologyManager.addAxiom(ontology, objectPropertyAssertion_account_dx_dhij);
+				
+				//Metamodelling dhij DHij
+				OWLAxiom metamodelling_DHij_dhij = factory.getOWLMetamodellingAxiom((OWLClassExpression) DHij_Class, (OWLNamedIndividual) dhij_NamedIndividual);
+				ontologyManager.addAxiom(ontology, metamodelling_DHij_dhij);
 				
 			}
 			
@@ -137,6 +194,29 @@ public class HermitHelper {
 		ontologyManager.addAxiom(ontology, disjointDefClassesAxiom);
 		
 		for (int i=0; i<inputRows.size(); i++) {
+			
+			//ix individual Declaration
+			OWLEntity ix_NamedIndividual = factory.getOWLEntity(EntityType.NAMED_INDIVIDUAL, IRI.create("i"+i));
+			differentNamedIndividuals.add((OWLNamedIndividual) ix_NamedIndividual);
+			OWLAxiom declare_ix = factory.getOWLDeclarationAxiom(ix_NamedIndividual);
+			ontologyManager.addAxiom(ontology, declare_ix);
+			
+			//ClassAssertion DX ix ---- Agregar relacion entre el Def y el Input
+//			OWLAxiom classAssertion_DX_ix = factory.getOWLClassAssertionAxiom((OWLClassExpression) DX_Class, (OWLNamedIndividual) ix_NamedIndividual);
+//			ontologyManager.addAxiom(ontology, classAssertion_DX_ix);
+			
+			//DataPropertyAssertion comment ix IAX
+			OWLEntity comment_DataProperty = factory.getOWLEntity(EntityType.DATA_PROPERTY, IRI.create("comment"));
+			OWLLiteral IAX = factory.getOWLLiteral(inputRows.get(i).getAsientoField().getText());
+			OWLAxiom dataPropertyAssertion_comment_ix_IAX = factory.getOWLDataPropertyAssertionAxiom((OWLDataProperty) comment_DataProperty, (OWLNamedIndividual) ix_NamedIndividual, IAX);
+			ontologyManager.addAxiom(ontology, dataPropertyAssertion_comment_ix_IAX);
+			
+			//DataPropertyAssertion dataEntry ix IFX
+			OWLEntity dataEntry_DataProperty = factory.getOWLEntity(EntityType.DATA_PROPERTY, IRI.create("dataEntry"));
+			OWLLiteral IFX = factory.getOWLLiteral(inputRows.get(i).getFechaField().getText());
+			OWLAxiom dataPropertyAssertion_dataEntry_ix_IFX = factory.getOWLDataPropertyAssertionAxiom((OWLDataProperty) dataEntry_DataProperty, (OWLNamedIndividual) ix_NamedIndividual, IFX);
+			ontologyManager.addAxiom(ontology, dataPropertyAssertion_dataEntry_ix_IFX);
+			
 			for (JComboBox debes : inputRows.get(i).getDebeFields()) {
 				
 			}
