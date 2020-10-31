@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/org.semanticweb.hermit"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/owlapi-api"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/owlapi-apibinding"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/owlapi-compatibility"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/owlapi-contract"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/owlapi-distribution"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/owlapi-fixers"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/owlapi-impl"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/owlapi-oboformat"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/owlapi-osgidistribution"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/owlapi-parsers"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/owlapi-rio"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/owlapi-tools"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
