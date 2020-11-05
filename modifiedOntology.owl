@@ -1,0 +1,497 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.semanticweb.org/usuario/ontologies/2018/2/untitled-ontology-242"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="http://www.semanticweb.org/usuario/ontologies/2018/2/untitled-ontology-242">
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Declaration>
+        <Class IRI="D0"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="DD00"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="DD01"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="DH00"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Account"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Asset"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Availability"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Det"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DetDef"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DetNotQualified"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Entry"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#EntryDef"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Liability"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#account"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#detail"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#detailC"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#detailD"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#detailDef"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#detailDefC"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#detailDefD"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#amount"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#comment"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#commentDef"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#dateEntry"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="d0"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="dd00"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="dd01"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="dh00"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#11111-Cash"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#11112-Bank"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#11211-RenterDebt"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#11311-RenterFee"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#12222-DamageExpenses"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#21111-Landlords"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="D0"/>
+        <Class IRI="#Entry"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="D0"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#detailC"/>
+            <Class IRI="DH00"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="D0"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#detailD"/>
+            <ObjectUnionOf>
+                <Class IRI="DD00"/>
+                <Class IRI="DD01"/>
+            </ObjectUnionOf>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="DD00"/>
+        <Class IRI="#Det"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="DD01"/>
+        <Class IRI="#Det"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="DH00"/>
+        <Class IRI="#Det"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Asset"/>
+        <Class IRI="#Account"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Availability"/>
+        <Class IRI="#Asset"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Det"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectInverseOf>
+                <ObjectProperty IRI="#detail"/>
+            </ObjectInverseOf>
+            <Class IRI="#Entry"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DetDef"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="#account"/>
+            <Class IRI="#Account"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DetDef"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectInverseOf>
+                <ObjectProperty IRI="#detailDef"/>
+            </ObjectInverseOf>
+            <Class IRI="#EntryDef"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DetNotQualified"/>
+        <Class IRI="#Det"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Entry"/>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#detailC"/>
+                <Class abbreviatedIRI="owl:Thing"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#detailD"/>
+                <Class abbreviatedIRI="owl:Thing"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Entry"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#detail"/>
+            <ObjectUnionOf>
+                <ObjectSomeValuesFrom>
+                    <ObjectInverseOf>
+                        <ObjectProperty IRI="#detailC"/>
+                    </ObjectInverseOf>
+                    <Class IRI="#Entry"/>
+                </ObjectSomeValuesFrom>
+                <ObjectSomeValuesFrom>
+                    <ObjectInverseOf>
+                        <ObjectProperty IRI="#detailD"/>
+                    </ObjectInverseOf>
+                    <Class IRI="#Entry"/>
+                </ObjectSomeValuesFrom>
+            </ObjectUnionOf>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#EntryDef"/>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#detailDefC"/>
+                <Class abbreviatedIRI="owl:Thing"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#detailDefD"/>
+                <Class abbreviatedIRI="owl:Thing"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#EntryDef"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#detailDef"/>
+            <ObjectUnionOf>
+                <ObjectSomeValuesFrom>
+                    <ObjectInverseOf>
+                        <ObjectProperty IRI="#detailDefC"/>
+                    </ObjectInverseOf>
+                    <Class IRI="#EntryDef"/>
+                </ObjectSomeValuesFrom>
+                <ObjectSomeValuesFrom>
+                    <ObjectInverseOf>
+                        <ObjectProperty IRI="#detailDefD"/>
+                    </ObjectInverseOf>
+                    <Class IRI="#EntryDef"/>
+                </ObjectSomeValuesFrom>
+            </ObjectUnionOf>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Liability"/>
+        <Class IRI="#Account"/>
+    </SubClassOf>
+    <DisjointClasses>
+        <Annotation>
+            <Annotation>
+                <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+                <Literal>Generated by the OWL API (version 4.5.7) https://github.com/owlcs/owlapi on 11/4/20 6:32 PM</Literal>
+            </Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>DisjointClasses(&lt;D0&gt;) replaced by DisjointClasses(&lt;D0&gt; owl:Thing)</Literal>
+        </Annotation>
+        <Class IRI="D0"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="DD00"/>
+        <Class IRI="DD01"/>
+        <Class IRI="DH00"/>
+        <Class IRI="#DetNotQualified"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Account"/>
+        <Class IRI="#Det"/>
+        <Class IRI="#DetDef"/>
+        <Class IRI="#Entry"/>
+        <Class IRI="#EntryDef"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Asset"/>
+        <Class IRI="#Liability"/>
+    </DisjointClasses>
+    <ClassAssertion>
+        <Class IRI="#EntryDef"/>
+        <NamedIndividual IRI="d0"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#DetDef"/>
+        <NamedIndividual IRI="dd00"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#DetDef"/>
+        <NamedIndividual IRI="dd01"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#DetDef"/>
+        <NamedIndividual IRI="dh00"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Availability"/>
+        <NamedIndividual IRI="#11111-Cash"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Availability"/>
+        <NamedIndividual IRI="#11112-Bank"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <ObjectIntersectionOf>
+            <Class IRI="#Asset"/>
+            <ObjectComplementOf>
+                <Class IRI="#Availability"/>
+            </ObjectComplementOf>
+        </ObjectIntersectionOf>
+        <NamedIndividual IRI="#11211-RenterDebt"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <ObjectIntersectionOf>
+            <Class IRI="#Asset"/>
+            <ObjectComplementOf>
+                <Class IRI="#Availability"/>
+            </ObjectComplementOf>
+        </ObjectIntersectionOf>
+        <NamedIndividual IRI="#11311-RenterFee"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <ObjectIntersectionOf>
+            <Class IRI="#Asset"/>
+            <ObjectComplementOf>
+                <Class IRI="#Availability"/>
+            </ObjectComplementOf>
+        </ObjectIntersectionOf>
+        <NamedIndividual IRI="#12222-DamageExpenses"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Liability"/>
+        <NamedIndividual IRI="#21111-Landlords"/>
+    </ClassAssertion>
+    <DifferentIndividuals>
+        <NamedIndividual IRI="d0"/>
+        <NamedIndividual IRI="dd00"/>
+        <NamedIndividual IRI="dd01"/>
+        <NamedIndividual IRI="dh00"/>
+        <NamedIndividual IRI="#11211-RenterDebt"/>
+        <NamedIndividual IRI="#11311-RenterFee"/>
+        <NamedIndividual IRI="#21111-Landlords"/>
+    </DifferentIndividuals>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#detailDefC"/>
+        <NamedIndividual IRI="d0"/>
+        <NamedIndividual IRI="dh00"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#detailDefD"/>
+        <NamedIndividual IRI="d0"/>
+        <NamedIndividual IRI="dd00"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#detailDefD"/>
+        <NamedIndividual IRI="d0"/>
+        <NamedIndividual IRI="dd01"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#account"/>
+        <NamedIndividual IRI="dd00"/>
+        <NamedIndividual IRI="#11211-RenterDebt"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#account"/>
+        <NamedIndividual IRI="dd01"/>
+        <NamedIndividual IRI="#11311-RenterFee"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#account"/>
+        <NamedIndividual IRI="dh00"/>
+        <NamedIndividual IRI="#21111-Landlords"/>
+    </ObjectPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#commentDef"/>
+        <NamedIndividual IRI="d0"/>
+        <Literal>a1</Literal>
+    </DataPropertyAssertion>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#detailC"/>
+        <ObjectProperty IRI="#detail"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#detailD"/>
+        <ObjectProperty IRI="#detail"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#detailDefC"/>
+        <ObjectProperty IRI="#detailDef"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#detailDefD"/>
+        <ObjectProperty IRI="#detailDef"/>
+    </SubObjectPropertyOf>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#account"/>
+    </FunctionalObjectProperty>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#account"/>
+        <Class IRI="#DetDef"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#detail"/>
+        <Class IRI="#Entry"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#detailDef"/>
+        <Class IRI="#EntryDef"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#account"/>
+        <Class IRI="#Account"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#detail"/>
+        <Class IRI="#Det"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#detailDef"/>
+        <Class IRI="#DetDef"/>
+    </ObjectPropertyRange>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#amount"/>
+    </FunctionalDataProperty>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#comment"/>
+    </FunctionalDataProperty>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#commentDef"/>
+    </FunctionalDataProperty>
+    <DataPropertyDomain>
+        <DataProperty IRI="#amount"/>
+        <Class IRI="#Det"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#comment"/>
+        <Class IRI="#Entry"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#commentDef"/>
+        <Class IRI="#EntryDef"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#dateEntry"/>
+        <Class IRI="#Entry"/>
+    </DataPropertyDomain>
+    <DataPropertyRange>
+        <DataProperty IRI="#amount"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#comment"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#commentDef"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#dateEntry"/>
+        <Datatype abbreviatedIRI="xsd:dateTime"/>
+    </DataPropertyRange>
+    <MetaModelling>
+        <NamedIndividual IRI="d0"/>
+        <Class IRI="D0"/>
+    </MetaModelling>
+    <MetaModelling>
+        <NamedIndividual IRI="dd00"/>
+        <Class IRI="DD00"/>
+    </MetaModelling>
+    <MetaModelling>
+        <NamedIndividual IRI="dd01"/>
+        <Class IRI="DD01"/>
+    </MetaModelling>
+    <MetaModelling>
+        <NamedIndividual IRI="dh00"/>
+        <Class IRI="DH00"/>
+    </MetaModelling>
+    <MetaRule>
+        <ObjectProperty IRI="#detailDefC"/>
+        <ObjectProperty IRI="#detailC"/>
+    </MetaRule>
+    <MetaRule>
+        <ObjectProperty IRI="#detailDefD"/>
+        <ObjectProperty IRI="#detailD"/>
+    </MetaRule>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.5.7) https://github.com/owlcs/owlapi -->
+

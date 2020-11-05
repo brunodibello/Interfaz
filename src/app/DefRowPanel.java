@@ -79,6 +79,14 @@ public class DefRowPanel extends JPanel {
 		
 	}
 	
+	public void removeDefRow() {
+		if (this.defRows.size() > 0) {
+			removeLastRow();
+			defRows.remove(defRows.size()-1);
+			revalidate();
+		}
+	}
+	
 	public void addDebe() {
 		defRows.get(defRows.size()-1).addDebe();
 		removeLastRow();

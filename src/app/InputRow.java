@@ -13,9 +13,9 @@ public class InputRow {
 	private JTextField asientoField;
 	private JTextField fechaField;
 	private List<JComboBox> debeFields;
-	private JTextField importe1Field;
+	private List<JTextField> importe1Fields;
 	private List<JComboBox> haberFields;
-	private JTextField importe2Field;
+	private List<JTextField> importe2Fields;
 	private List<String> boxValues = new ArrayList<String>() {
 		{
 			add("11211-RenterDebt");
@@ -35,20 +35,20 @@ public class InputRow {
 		this.fechaField = fechaField;
 	}
 
-	public JTextField getImporte1Field() {
-		return importe1Field;
+	public List<JTextField> getImporte1Fields() {
+		return importe1Fields;
 	}
 
-	public void setImporte1Field(JTextField importe1Field) {
-		this.importe1Field = importe1Field;
+	public void setImporte1Field(List<JTextField> importe1Fields) {
+		this.importe1Fields = importe1Fields;
 	}
 
-	public JTextField getImporte2Field() {
-		return importe2Field;
+	public List<JTextField> getImporte2Fields() {
+		return importe2Fields;
 	}
 
-	public void setImporte2Field(JTextField importe2Field) {
-		this.importe2Field = importe2Field;
+	public void setImporte2Fields(List<JTextField> importe2Fields) {
+		this.importe2Fields = importe2Fields;
 	}
 
 	public List<String> getBoxValues() {
@@ -88,9 +88,11 @@ public class InputRow {
 		asientoField = new JTextField(20);
 		fechaField = new JTextField(10);
 		debeFields = new ArrayList<JComboBox>();
-		importe1Field = new JTextField(10);
+		importe1Fields = new ArrayList<JTextField>();
+		importe1Fields.add(new JTextField(10));
 		haberFields = new ArrayList<JComboBox>();
-		importe2Field = new JTextField(10);
+		importe2Fields = new ArrayList<JTextField>();
+		importe2Fields.add(new JTextField(10));
 		
 		JComboBox debeBox = new JComboBox();
 		DefaultComboBoxModel boxModel = new DefaultComboBoxModel();
@@ -121,6 +123,7 @@ public class InputRow {
 		debeBox.setModel(boxModel);
 		debeBox.setSelectedIndex(0);
 		debeFields.add(debeBox);
+		importe1Fields.add(new JTextField(10));
 	}
 	
 	public void addHaber() {
@@ -132,6 +135,21 @@ public class InputRow {
 		haberBox.setModel(boxModel);
 		haberBox.setSelectedIndex(0);
 		haberFields.add(haberBox);
+		importe2Fields.add(new JTextField(10));
+	}
+	
+	public void removeDebe() {
+		if (debeFields.size() > 0 && importe1Fields.size() > 0) {
+			debeFields.remove(debeFields.size()-1);
+			importe1Fields.remove(importe1Fields.size()-1);
+		}
+	}
+	
+	public void removeHaber() {
+		if (haberFields.size() > 0 && importe2Fields.size() > 0) {
+			haberFields.remove(haberFields.size()-1);
+			importe2Fields.remove(importe2Fields.size()-1);
+		}
 	}
 	
 

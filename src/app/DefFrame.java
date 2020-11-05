@@ -23,7 +23,7 @@ public class DefFrame extends JPanel {
 	private JLabel debeLabel;
 	private JLabel haberLabel;
 	
-	private JButton confirmBtn;
+	private JButton removeRowBtn;
 	private JButton addRowBtn;
 	
 	private JButton addDebeBtn;
@@ -39,7 +39,7 @@ public class DefFrame extends JPanel {
 		debeLabel = new JLabel("Debe");
 		haberLabel = new JLabel("Haber");
 		
-		confirmBtn = new JButton("Confirmar");
+		removeRowBtn = new JButton("Remover Fila");
 		addRowBtn = new JButton("Agregar Fila");
 		addDebeBtn = new JButton("+");
 		addHaberBtn = new JButton("+");
@@ -47,6 +47,12 @@ public class DefFrame extends JPanel {
 		addRowBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				defRowPanel.addDefRow();
+			}
+		});
+		
+		removeRowBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				defRowPanel.removeDefRow();
 			}
 		});
 		
@@ -93,7 +99,6 @@ public class DefFrame extends JPanel {
 		add(asientoLabel, gc);
 		
 		gc.weightx = 0.5;
-		
 		gc.gridx++;
 		add(debeLabel, gc);
 		gc.gridx++;
@@ -113,7 +118,7 @@ public class DefFrame extends JPanel {
 		gc.weighty = 1;
 		gc.insets = new Insets(0, 0, 0, 0);
 		gc.gridwidth = 100;
-		
+		gc.anchor = GridBagConstraints.CENTER;
 		add(defRowPanel, gc);		
 		defRowPanel.addDefRow();
 		
@@ -135,10 +140,10 @@ public class DefFrame extends JPanel {
 		gc.gridx = 1;
 		gc.insets = new Insets(5, 0, 0, 0);
 		gc.anchor = GridBagConstraints.PAGE_END;
-		add(confirmBtn, gc);
+		add(addRowBtn, gc);
 		
 		gc.gridx++;
-		add(addRowBtn, gc);
+		add(removeRowBtn, gc);
 	}
 	
 	public List<DefRow> getDefRows() {

@@ -28,9 +28,12 @@ public class InputFrame extends JPanel {
 	
 	public JButton confirmBtn;
 	private JButton addRowBtn;
+	private JButton removeRowBtn;
 	
 	private JButton addDebeBtn;
 	private JButton addHaberBtn;
+	private JButton removeDebeBtn;
+	private JButton removeHaberBtn;
 	
 	private InputRowPanel inputRowPanel;
 	
@@ -47,13 +50,22 @@ public class InputFrame extends JPanel {
 		
 		confirmBtn = new JButton("Confirmar");
 		addRowBtn = new JButton("Agregar Fila");
+		removeRowBtn = new JButton("Remover Fila");
 		
 		addDebeBtn = new JButton("+");
 		addHaberBtn = new JButton("+");
+		removeDebeBtn = new JButton("-");
+		removeHaberBtn = new JButton("-");
 		
 		addRowBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inputRowPanel.addInputRow();
+			}
+		});
+		
+		removeRowBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				inputRowPanel.removeInputRow();
 			}
 		});
 		
@@ -66,6 +78,18 @@ public class InputFrame extends JPanel {
 		addHaberBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inputRowPanel.addHaber();
+			}
+		});
+		
+		removeDebeBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				inputRowPanel.removeDebe();
+			}
+		});
+		
+		removeHaberBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				inputRowPanel.removeHaber();
 			}
 		});
 		
@@ -93,11 +117,11 @@ public class InputFrame extends JPanel {
 		gc.gridwidth = 1;
 		
 		gc.weightx = 1;
-		gc.weighty = 1;
-		
+		gc.weighty = 1;		
 		
 		gc.anchor = GridBagConstraints.LINE_START;
 		add(asientoLabel, gc);
+		
 		
 		gc.gridx++;
 		add(fechaLabel, gc);
@@ -109,20 +133,27 @@ public class InputFrame extends JPanel {
 		gc.gridx++;
 		add(addDebeBtn, gc);
 		
+//		gc.gridx++;
+//		add(removeDebeBtn, gc);
+		
 		gc.gridx++;
 		gc.weightx = 1;
 		add(importe1Label, gc);
 		
-		gc.gridx++;
+		
 		gc.weightx = 0.5;
+		gc.gridx++;
 		add(haberLabel, gc);
 		
 		gc.gridx++;
 		add(addHaberBtn, gc);
 		
+//		gc.gridx++;
+//		add(removeHaberBtn, gc);
+		gc.insets = new Insets(0, 0, 0, 50);
 		gc.gridx++;
-		gc.weightx = 1;
 		add(importe2Label, gc);
+		//gc.anchor = GridBagConstraints.LINE_END;
 		
 		/////////// ROWS ///////////////
 		
@@ -155,6 +186,9 @@ public class InputFrame extends JPanel {
 		
 		gc.gridx++;
 		add(addRowBtn, gc);
+		
+		gc.gridx++;
+		add(removeRowBtn, gc);
 	}
 	
 	public List<InputRow> getInputRows() {

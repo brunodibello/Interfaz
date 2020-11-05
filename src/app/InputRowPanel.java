@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class InputRowPanel extends JPanel {
 	
@@ -49,11 +50,11 @@ public class InputRowPanel extends JPanel {
 		gc.gridx = 0;
 		add(inputRow.getAsientoField(), gc);
 		
-		gc.insets = new Insets(0, 0, 0, 50);
+		
 		
 		gc.gridx++;
 		add(inputRow.getFechaField(), gc);
-		
+		gc.insets = new Insets(0, 0, 0, 50);
 		gc.gridx++;
 		for (JComboBox combBox : inputRow.getDebeFields()) {
 			add(combBox, gc);
@@ -65,7 +66,14 @@ public class InputRowPanel extends JPanel {
 		gc.gridy = gridy;
 		
 		gc.gridx++;
-		add(inputRow.getImporte1Field(), gc);
+		for (JTextField importeField : inputRow.getImporte1Fields()) {
+			add(importeField, gc);
+			gc.gridy++;
+		}
+		if (gc.gridy > lastGridY) {
+			lastGridY = gc.gridy;
+		}
+		gc.gridy = gridy;
 		
 		gc.gridx++;
 		for (JComboBox combBox : inputRow.getHaberFields()) {
@@ -78,12 +86,28 @@ public class InputRowPanel extends JPanel {
 		gc.gridy = gridy;
 		
 		gc.gridx++;
-		add(inputRow.getImporte2Field(), gc);
+		
+		for (JTextField importeField : inputRow.getImporte2Fields()) {
+			add(importeField, gc);
+			gc.gridy++;
+		}
+		if (gc.gridy > lastGridY) {
+			lastGridY = gc.gridy;
+		}
+		gc.gridy = gridy;
 		
 		gc.gridy = lastGridY;
 		
 		this.revalidate();
 		
+	}
+	
+	public void removeInputRow() {
+		if (this.inputRows.size() > 0) {
+			removeLastRow();
+			inputRows.remove(inputRows.size()-1);
+			revalidate();
+		}
 	}
 	
 	public void addDebe() {
@@ -100,6 +124,20 @@ public class InputRowPanel extends JPanel {
 		revalidate();
 	}
 	
+	public void removeDebe() {
+		inputRows.get(inputRows.size()-1).removeDebe();
+		removeLastRow();
+		addLastRow();
+		revalidate();
+	}
+	
+	public void removeHaber() {
+		inputRows.get(inputRows.size()-1).removeHaber();
+		removeLastRow();
+		addLastRow();
+		revalidate();
+	}
+	
 	private void removeLastRow() {
 		InputRow inputRow = inputRows.get(inputRows.size()-1);
 		remove(inputRow.getAsientoField());
@@ -110,8 +148,12 @@ public class InputRowPanel extends JPanel {
 			remove(cb);
 		}
 		remove(inputRow.getFechaField());
-		remove(inputRow.getImporte1Field());
-		remove(inputRow.getImporte2Field());
+		for (JTextField importeField : inputRow.getImporte1Fields()) {
+			remove(importeField);
+		}
+		for (JTextField importeField : inputRow.getImporte2Fields()) {
+			remove(importeField);
+		}
 	}
 	
 	private void addLastRow() {
@@ -139,7 +181,14 @@ public class InputRowPanel extends JPanel {
 		gc.gridy = gridy;
 		
 		gc.gridx++;
-		add(inputRow.getImporte1Field(), gc);
+		for (JTextField importeField : inputRow.getImporte1Fields()) {
+			add(importeField, gc);
+			gc.gridy++;
+		}
+		if (gc.gridy > lastGridY) {
+			lastGridY = gc.gridy;
+		}
+		gc.gridy = gridy;
 		
 		gc.gridx++;
 		for (JComboBox combBox : inputRow.getHaberFields()) {
@@ -152,7 +201,14 @@ public class InputRowPanel extends JPanel {
 		gc.gridy = gridy;
 		
 		gc.gridx++;
-		add(inputRow.getImporte2Field(), gc);
+		for (JTextField importeField : inputRow.getImporte2Fields()) {
+			add(importeField, gc);
+			gc.gridy++;
+		}
+		if (gc.gridy > lastGridY) {
+			lastGridY = gc.gridy;
+		}
+		gc.gridy = gridy;
 		
 		gc.gridy = lastGridY;
 		
