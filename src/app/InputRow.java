@@ -16,6 +16,7 @@ public class InputRow {
 	private List<JTextField> importe1Fields;
 	private List<JComboBox> haberFields;
 	private List<JTextField> importe2Fields;
+	private JComboBox asientoDef;
 	private List<String> boxValues = new ArrayList<String>() {
 		{
 			add("11211-RenterDebt");
@@ -83,16 +84,28 @@ public class InputRow {
 		this.haberFields = haberFields;
 	}
 	
+	public JComboBox getAsientoDef() {
+		return asientoDef;
+	}
+
+	public void setAsientoDef(JComboBox asientoDef) {
+		this.asientoDef = asientoDef;
+	}
+
+	public void setImporte1Fields(List<JTextField> importe1Fields) {
+		this.importe1Fields = importe1Fields;
+	}
+
 	public InputRow() {
 	
 		asientoField = new JTextField(20);
 		fechaField = new JTextField(10);
 		debeFields = new ArrayList<JComboBox>();
 		importe1Fields = new ArrayList<JTextField>();
-		importe1Fields.add(new JTextField(10));
+		importe1Fields.add(new JTextField(7));
 		haberFields = new ArrayList<JComboBox>();
 		importe2Fields = new ArrayList<JTextField>();
-		importe2Fields.add(new JTextField(10));
+		importe2Fields.add(new JTextField(7));
 		
 		JComboBox debeBox = new JComboBox();
 		DefaultComboBoxModel boxModel = new DefaultComboBoxModel();
@@ -111,6 +124,10 @@ public class InputRow {
 		haberBox.setModel(boxModel);
 		haberBox.setSelectedIndex(0);
 		haberFields.add(haberBox);
+		
+		asientoDef = new JComboBox();
+		boxModel = new DefaultComboBoxModel();
+		asientoDef.setModel(boxModel);
 		
 	}
 	
@@ -150,6 +167,16 @@ public class InputRow {
 			haberFields.remove(haberFields.size()-1);
 			importe2Fields.remove(importe2Fields.size()-1);
 		}
+	}
+	
+	public void updateDef(List<String> asientos) {
+		DefaultComboBoxModel boxModel = new DefaultComboBoxModel();
+		for (String value : asientos) {
+			System.out.println(value);
+			boxModel.addElement(value);
+		}
+		asientoDef.setModel(boxModel);
+		asientoDef.setSelectedIndex(0);
 	}
 	
 

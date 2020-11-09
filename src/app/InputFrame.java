@@ -173,6 +173,10 @@ public class InputFrame extends JPanel {
 		
 	}
 	
+	public void updateDef(List<String> asientos) {
+		this.inputRowPanel.updateDef(asientos);
+	}
+	
 	private void addButtons() {
 		gc.gridy++;
 		

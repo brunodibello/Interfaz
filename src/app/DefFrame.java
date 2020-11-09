@@ -25,6 +25,7 @@ public class DefFrame extends JPanel {
 	
 	private JButton removeRowBtn;
 	private JButton addRowBtn;
+	public JButton updateDefBtn;
 	
 	private JButton addDebeBtn;
 	private JButton addHaberBtn;
@@ -41,6 +42,7 @@ public class DefFrame extends JPanel {
 		
 		removeRowBtn = new JButton("Remover Fila");
 		addRowBtn = new JButton("Agregar Fila");
+		updateDefBtn = new JButton("Guardar Definiciones");
 		addDebeBtn = new JButton("+");
 		addHaberBtn = new JButton("+");
 		
@@ -144,10 +146,21 @@ public class DefFrame extends JPanel {
 		
 		gc.gridx++;
 		add(removeRowBtn, gc);
+		
+		gc.gridx++;
+		add(updateDefBtn, gc);
 	}
 	
 	public List<DefRow> getDefRows() {
 		return this.defRowPanel.getDefRows();
+	}
+	
+	public List<String> getAsientos() {
+		List<String> asientos = new ArrayList<String>();
+		for (DefRow defRow : this.defRowPanel.getDefRows()) {
+			asientos.add(defRow.getAsientoField().getText());
+		}
+		return asientos;
 	}
 	
 }

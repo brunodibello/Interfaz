@@ -96,6 +96,9 @@ public class InputRowPanel extends JPanel {
 		}
 		gc.gridy = gridy;
 		
+		gc.gridx++;
+		add(inputRow.getAsientoDef(), gc);
+		
 		gc.gridy = lastGridY;
 		
 		this.revalidate();
@@ -154,6 +157,7 @@ public class InputRowPanel extends JPanel {
 		for (JTextField importeField : inputRow.getImporte2Fields()) {
 			remove(importeField);
 		}
+		remove(inputRow.getAsientoDef());
 	}
 	
 	private void addLastRow() {
@@ -210,8 +214,18 @@ public class InputRowPanel extends JPanel {
 		}
 		gc.gridy = gridy;
 		
+		gc.gridx++;
+		add(inputRow.getAsientoDef(), gc);
+		
 		gc.gridy = lastGridY;
 		
+		this.revalidate();
+	}
+	
+	public void updateDef(List<String> asientos) {
+		for (InputRow inputRow : this.inputRows) {
+			inputRow.updateDef(asientos);
+		}
 		this.revalidate();
 	}
 

@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -22,8 +23,14 @@ public class MainFrame extends JFrame {
 		
 		inputFrame.confirmBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Confirmar");
-				HermitHelper.runReasoner(defFrame.getDefRows(), inputFrame.getInputRows());
+				Boolean consistent = HermitHelper.runReasoner(defFrame.getDefRows(), inputFrame.getInputRows());
+				showReasonerResult(consistent);
+			}
+		});
+				
+		defFrame.updateDefBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				inputFrame.updateDef(defFrame.getAsientos());
 			}
 		});
 		
@@ -35,9 +42,17 @@ public class MainFrame extends JFrame {
 		mainPanel.add(defFrame);
 		mainPanel.add(inputFrame);
 		
-		setSize(1400,1000);
+		setSize(1600,1000);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
+	}
+	
+	private void showReasonerResult(Boolean consistent) {
+		if (consistent) {
+			JOptionPane.showMessageDialog(this, "Ontologia Consistente");
+		} else {
+			JOptionPane.showMessageDialog(this, "Ontologia Inconsistent");
+		}
 	}
 
 }

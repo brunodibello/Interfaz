@@ -234,7 +234,7 @@ public class HermitHelper {
 				ontologyManager.addAxiom(ontology, declare_ix);
 				
 				//ClassAssertion DX ix 
-				OWLEntity DX_Class = factory.getOWLEntity(EntityType.CLASS, IRI.create("D"+i));
+				OWLEntity DX_Class = factory.getOWLEntity(EntityType.CLASS, IRI.create("D"+inputRows.get(i).getAsientoDef().getSelectedIndex()));
 				OWLAxiom classAssertion_DX_ix = factory.getOWLClassAssertionAxiom((OWLClassExpression) DX_Class, (OWLNamedIndividual) ix_NamedIndividual);
 				ontologyManager.addAxiom(ontology, classAssertion_DX_ix);
 				
@@ -259,9 +259,17 @@ public class HermitHelper {
 					ontologyManager.addAxiom(ontology, declare_idij);
 					
 					//ClassAsertion DDij idij
-					OWLEntity DDij_Class = factory.getOWLEntity(EntityType.CLASS, IRI.create("DD"+i+j));
-					OWLAxiom classAssertion_DDij_idij = factory.getOWLClassAssertionAxiom((OWLClassExpression) DDij_Class, (OWLNamedIndividual) idij_NamedIndividual);
-					ontologyManager.addAxiom(ontology, classAssertion_DDij_idij);
+					int jAux = getDefinitonCorrespondantDebe(defRows.get(inputRows.get(i).getAsientoDef().getSelectedIndex()),inputRows.get(i).getDebeFields().get(j));
+					if (jAux == -1) {
+						OWLEntity DetNotQualified = factory.getOWLEntity(EntityType.CLASS, IRI.create("#DetNotQualified"));
+						OWLAxiom classAssertion_DDij_idij = factory.getOWLClassAssertionAxiom((OWLClassExpression) DetNotQualified, (OWLNamedIndividual) idij_NamedIndividual);
+						ontologyManager.addAxiom(ontology, classAssertion_DDij_idij);
+					} else {
+						OWLEntity DDij_Class = factory.getOWLEntity(EntityType.CLASS, IRI.create("DD"+inputRows.get(i).getAsientoDef().getSelectedIndex()+jAux));
+						OWLAxiom classAssertion_DDij_idij = factory.getOWLClassAssertionAxiom((OWLClassExpression) DDij_Class, (OWLNamedIndividual) idij_NamedIndividual);
+						ontologyManager.addAxiom(ontology, classAssertion_DDij_idij);
+					}
+					
 					
 					//ObjectPropertyAssertion detailD ix idij
 					OWLEntity detailD_ObjectProperty = factory.getOWLEntity(EntityType.OBJECT_PROPERTY, IRI.create("#detailD"));
@@ -286,9 +294,16 @@ public class HermitHelper {
 					ontologyManager.addAxiom(ontology, declare_ihij);
 					
 					//ClassAsertion DHij ihij
-					OWLEntity DHij_Class = factory.getOWLEntity(EntityType.CLASS, IRI.create("DH"+i+j));
-					OWLAxiom classAssertion_DHij_ihij = factory.getOWLClassAssertionAxiom((OWLClassExpression) DHij_Class, (OWLNamedIndividual) ihij_NamedIndividual);
-					ontologyManager.addAxiom(ontology, classAssertion_DHij_ihij);
+					int jAux = getDefinitonCorrespondantHaber(defRows.get(inputRows.get(i).getAsientoDef().getSelectedIndex()),inputRows.get(i).getHaberFields().get(j));
+					if (jAux == -1) {
+						OWLEntity DetNotQualified = factory.getOWLEntity(EntityType.CLASS, IRI.create("#DetNotQualified"));
+						OWLAxiom classAssertion_DHij_ihij = factory.getOWLClassAssertionAxiom((OWLClassExpression) DetNotQualified, (OWLNamedIndividual) ihij_NamedIndividual);
+						ontologyManager.addAxiom(ontology, classAssertion_DHij_ihij);
+					} else {
+						OWLEntity DHij_Class = factory.getOWLEntity(EntityType.CLASS, IRI.create("DH"+inputRows.get(i).getAsientoDef().getSelectedIndex()+jAux));
+						OWLAxiom classAssertion_DHij_idij = factory.getOWLClassAssertionAxiom((OWLClassExpression) DHij_Class, (OWLNamedIndividual) ihij_NamedIndividual);
+						ontologyManager.addAxiom(ontology, classAssertion_DHij_idij);
+					}
 					
 					//ObjectPropertyAssertion detailC ix ihij
 					OWLEntity detailC_ObjectProperty = factory.getOWLEntity(EntityType.OBJECT_PROPERTY, IRI.create("#detailC"));
@@ -313,6 +328,30 @@ public class HermitHelper {
 		}
 	}
 	
+	private static int getDefinitonCorrespondantDebe(DefRow defRow, JComboBox debe) {
+		int result = -1;
+		
+		for (int i=0; i<defRow.getDebeFields().size(); i++) {
+			if (defRow.getDebeFields().get(i).getSelectedIndex() == debe.getSelectedIndex()) {
+				result = i;
+			}
+		}
+
+		return result;
+	}
+	
+	private static int getDefinitonCorrespondantHaber(DefRow defRow, JComboBox haber) {
+		int result = -1;
+		
+		for (int i=0; i<defRow.getHaberFields().size(); i++) {
+			if (defRow.getHaberFields().get(i).getSelectedIndex() == haber.getSelectedIndex()) {
+				result = i;
+			}
+		}
+		
+		return result;
+	}
+	
 	private static void saveModifiedOntology(OWLOntology ontology) {
 		File file = new File("modifiedOntology.owl");
 		try {
@@ -324,7 +363,7 @@ public class HermitHelper {
 		}
 	}
 	
-	public static void runReasoner(List<DefRow> defRows, List<InputRow> inputRows) {
+	public static boolean runReasoner(List<DefRow> defRows, List<InputRow> inputRows) {
 		try {
             OWLOntology ontology = getBaseOntology();
             modifyOntology(defRows, inputRows, ontology);
@@ -336,6 +375,8 @@ public class HermitHelper {
 			System.out.println("Error preparing the ontology");
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+			return false;
 		}
+		return true;
 	}
 }
