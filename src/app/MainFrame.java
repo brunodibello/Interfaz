@@ -42,7 +42,7 @@ public class MainFrame extends JFrame {
 		mainPanel.add(defFrame);
 		mainPanel.add(inputFrame);
 		
-		setSize(1600,1000);
+		setSize(1400,800);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}

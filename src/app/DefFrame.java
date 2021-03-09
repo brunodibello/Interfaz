@@ -15,6 +15,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 public class DefFrame extends JPanel {
@@ -29,10 +30,10 @@ public class DefFrame extends JPanel {
 	
 	private JButton addDebeBtn;
 	private JButton addHaberBtn;
-	
-	private DefRowPanel defRowPanel;
-		
+			
 	private GridBagConstraints gc;
+	
+	private List<DefRow> defRows;
 
 	public DefFrame() {
 		
@@ -48,35 +49,35 @@ public class DefFrame extends JPanel {
 		
 		addRowBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				defRowPanel.addDefRow();
+				addDefRow();
 			}
 		});
 		
 		removeRowBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				defRowPanel.removeDefRow();
+				removeDefRow();
 			}
 		});
 		
 		addDebeBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				defRowPanel.addDebe();
+				addDebe();
 			}
 		});
 		
 		addHaberBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				defRowPanel.addHaber();
+				addHaber();
 			}
 		});
-		
-		defRowPanel = new DefRowPanel();
 				
 		setBorder(BorderFactory.createEtchedBorder());
 		
 		Border innerBorder = BorderFactory.createTitledBorder("Definicion de Asientos");
 		Border outerBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
 		setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
+		
+		defRows = new ArrayList<DefRow>();
 				
 		addComponents();
 	}
@@ -86,21 +87,17 @@ public class DefFrame extends JPanel {
 		setLayout(new GridBagLayout());
 		
 		gc = new GridBagConstraints();
-		gc.fill = GridBagConstraints.NONE;
-		
-		////////// LABELS //////////
 		
 		gc.gridy = 0;
-		
-		gc.weightx = 1;
-		gc.weighty = 1;
-		
 		gc.gridx = 0;
-		gc.anchor = GridBagConstraints.LINE_START;
-		gc.insets = new Insets(0, 0, 0, 0);
-		add(asientoLabel, gc);
+		gc.weightx = 1;
 		
-		gc.weightx = 0.5;
+		gc.anchor = GridBagConstraints.FIRST_LINE_START;
+	
+		////////// LABELS //////////
+				
+		add(asientoLabel, gc);
+				
 		gc.gridx++;
 		add(debeLabel, gc);
 		gc.gridx++;
@@ -116,32 +113,25 @@ public class DefFrame extends JPanel {
 		gc.gridy++;
 		
 		gc.gridx = 0;
-		gc.weightx = 1;
-		gc.weighty = 1;
-		gc.insets = new Insets(0, 0, 0, 0);
-		gc.gridwidth = 100;
-		gc.anchor = GridBagConstraints.CENTER;
-		add(defRowPanel, gc);		
-		defRowPanel.addDefRow();
 		
-		gc.gridwidth = 1;
-		gc.fill = GridBagConstraints.NONE;
-				
-		//////////  BUTTON  ////////////
+		addDefRow();
 		
+		//////////BUTTONS  ////////////
 		addButtons();
 		
 	}
+	
+	private void removeButtons() {
+		remove(addRowBtn);
+		remove(removeRowBtn);
+		remove(updateDefBtn);
+	}
 
 	private void addButtons() {
-		gc.gridy++;
 		
-		gc.weightx = 0.5;
-		gc.weighty = 1;
-		
-		gc.gridx = 1;
-		gc.insets = new Insets(5, 0, 0, 0);
-		gc.anchor = GridBagConstraints.PAGE_END;
+		gc.anchor = GridBagConstraints.LAST_LINE_START;
+		gc.gridx = 0;
+
 		add(addRowBtn, gc);
 		
 		gc.gridx++;
@@ -149,18 +139,137 @@ public class DefFrame extends JPanel {
 		
 		gc.gridx++;
 		add(updateDefBtn, gc);
+		gc.anchor = GridBagConstraints.FIRST_LINE_START;
 	}
 	
 	public List<DefRow> getDefRows() {
-		return this.defRowPanel.getDefRows();
+		return this.defRows;
 	}
 	
 	public List<String> getAsientos() {
 		List<String> asientos = new ArrayList<String>();
-		for (DefRow defRow : this.defRowPanel.getDefRows()) {
+		for (DefRow defRow : this.defRows) {
 			asientos.add(defRow.getAsientoField().getText());
 		}
 		return asientos;
+	}
+	
+	public void addDefRow() {
+		gc.weighty = 1;
+		
+		removeButtons();
+		
+		int lastGridY = gc.gridy;
+		
+		DefRow defRow = new DefRow();
+		defRows.add(defRow);
+		
+		int gridy = gc.gridy;
+		
+		gc.gridx = 0;
+		gc.gridwidth = 1;
+		
+		add(defRow.getAsientoField(), gc);
+				
+		gc.gridx++;
+		gc.gridwidth =2;
+		for (JComboBox combBox : defRow.getDebeFields()) {
+			add(combBox, gc);
+			gc.gridy++;
+		}
+		if (gc.gridy > lastGridY) {
+			lastGridY = gc.gridy;
+		}
+		gc.gridy = gridy;
+		
+		gc.gridx++;
+		gc.gridx++;
+		for (JComboBox combBox : defRow.getHaberFields()) {
+			add(combBox, gc);
+			gc.gridy++;
+		}
+		if (gc.gridy > lastGridY) {
+			lastGridY = gc.gridy;
+		}
+		
+		gc.gridy = lastGridY;
+		
+		addButtons();
+		
+		this.revalidate();
+		
+	}
+	
+	public void removeDefRow() {
+		if (this.defRows.size() > 0) {
+			removeLastRow();
+			defRows.remove(defRows.size()-1);
+			revalidate();
+		}
+	}
+	
+	public void addDebe() {
+		defRows.get(defRows.size()-1).addDebe();
+		removeButtons();
+		removeLastRow();
+		addLastRow();
+		addButtons();
+		revalidate();
+	}
+	
+	public void addHaber() {
+		defRows.get(defRows.size()-1).addHaber();
+		removeButtons();
+		removeLastRow();
+		addLastRow();
+		addButtons();
+		revalidate();
+	}
+	
+	private void removeLastRow() {
+		DefRow defRow = defRows.get(defRows.size()-1);
+		remove(defRow.getAsientoField());
+		for (JComboBox cb : defRow.getDebeFields()) {
+			remove(cb);
+		}
+		for (JComboBox cb : defRow.getHaberFields()) {
+			remove(cb);
+		}
+	}
+	
+	private void addLastRow() {
+		DefRow defRow = defRows.get(defRows.size()-1);
+		int lastGridY = gc.gridy;
+		int gridy = gc.gridy;
+		
+		gc.gridx = 0;
+		
+		add(defRow.getAsientoField(), gc);
+				
+		gc.gridx++;
+		gc.gridwidth = 2;
+		for (JComboBox combBox : defRow.getDebeFields()) {
+			add(combBox, gc);
+			gc.gridy++;
+		}
+		if (gc.gridy > lastGridY) {
+			lastGridY = gc.gridy;
+		}
+		gc.gridy = gridy;
+		
+		gc.gridx++;
+		gc.gridx++;
+		for (JComboBox combBox : defRow.getHaberFields()) {
+			add(combBox, gc);
+			gc.gridy++;
+		}
+		if (gc.gridy > lastGridY) {
+			lastGridY = gc.gridy;
+		}
+		
+		gc.gridy = lastGridY;
+		
+		this.revalidate();
 	}
 	
 }

@@ -11,8 +11,10 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 import org.semanticweb.HermiT.cli.CommandLine;
@@ -34,10 +36,10 @@ public class InputFrame extends JPanel {
 	private JButton addHaberBtn;
 	private JButton removeDebeBtn;
 	private JButton removeHaberBtn;
-	
-	private InputRowPanel inputRowPanel;
-	
+		
 	private GridBagConstraints gc;
+	
+	private List<InputRow> inputRows;
 
 	public InputFrame() {
 		
@@ -57,43 +59,31 @@ public class InputFrame extends JPanel {
 		removeDebeBtn = new JButton("-");
 		removeHaberBtn = new JButton("-");
 		
+		inputRows = new ArrayList<InputRow>();
+		
 		addRowBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				inputRowPanel.addInputRow();
+				addInputRow();
 			}
 		});
 		
 		removeRowBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				inputRowPanel.removeInputRow();
+				removeInputRow();
 			}
 		});
 		
 		addDebeBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				inputRowPanel.addDebe();
+				addDebe();
 			}
 		});
 		
 		addHaberBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				inputRowPanel.addHaber();
+				addHaber();
 			}
-		});
-		
-		removeDebeBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				inputRowPanel.removeDebe();
-			}
-		});
-		
-		removeHaberBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				inputRowPanel.removeHaber();
-			}
-		});
-		
-		inputRowPanel = new InputRowPanel();
+		});		
 		
 		setBorder(BorderFactory.createEtchedBorder());
 		
@@ -114,89 +104,260 @@ public class InputFrame extends JPanel {
 		
 		gc.gridy = 0;
 		gc.gridx = 0;
-		gc.gridwidth = 1;
-		
 		gc.weightx = 1;
-		gc.weighty = 1;		
 		
-		gc.anchor = GridBagConstraints.LINE_START;
+		gc.anchor = GridBagConstraints.FIRST_LINE_START;
 		add(asientoLabel, gc);
 		
 		
 		gc.gridx++;
 		add(fechaLabel, gc);
 		
-		gc.weightx = 0.5;
 		gc.gridx++;
 		add(debeLabel, gc);
 		
 		gc.gridx++;
 		add(addDebeBtn, gc);
-		
-//		gc.gridx++;
-//		add(removeDebeBtn, gc);
-		
+				
 		gc.gridx++;
-		gc.weightx = 1;
 		add(importe1Label, gc);
-		
-		
-		gc.weightx = 0.5;
+				
 		gc.gridx++;
 		add(haberLabel, gc);
 		
 		gc.gridx++;
 		add(addHaberBtn, gc);
-		
-//		gc.gridx++;
-//		add(removeHaberBtn, gc);
-		gc.insets = new Insets(0, 0, 0, 50);
+				
 		gc.gridx++;
 		add(importe2Label, gc);
-		//gc.anchor = GridBagConstraints.LINE_END;
 		
 		/////////// ROWS ///////////////
 		
 		gc.gridy++;
 		
 		gc.gridx = 0;
-		gc.gridwidth = 8;
-		add(inputRowPanel, gc);		
-		inputRowPanel.addInputRow();
 		
-		gc.gridwidth = 1;
-		gc.fill = GridBagConstraints.NONE;
-				
+		addInputRow();
+		
 		//////////  BUTTON  ////////////
 		
 		addButtons();
 		
 	}
 	
-	public void updateDef(List<String> asientos) {
-		this.inputRowPanel.updateDef(asientos);
-	}
-	
 	private void addButtons() {
+		gc.anchor = GridBagConstraints.LAST_LINE_START;
 		gc.gridy++;
 		
-		gc.weightx = 1;
-		gc.weighty = 1;
+		gc.gridx = 0;
 		
-		gc.gridx = 3;
-		gc.insets = new Insets(5, 0, 0, 0);
-		gc.anchor = GridBagConstraints.PAGE_END;
-		add(confirmBtn, gc);
-		
-		gc.gridx++;
 		add(addRowBtn, gc);
 		
 		gc.gridx++;
 		add(removeRowBtn, gc);
+		
+		gc.gridx++;
+		add(confirmBtn, gc);
+		gc.anchor = GridBagConstraints.FIRST_LINE_START;
+	}
+	
+	private void removeButtons() {
+		remove(addRowBtn);
+		remove(removeRowBtn);
+		remove(confirmBtn);
 	}
 	
 	public List<InputRow> getInputRows() {
-		return this.inputRowPanel.getInputRows();
+		return this.inputRows;
+	}
+	
+	public void addInputRow() {
+		gc.weighty = 1;
+		
+		removeButtons();
+		
+		int lastGridY = gc.gridy;
+		
+		InputRow inputRow = new InputRow();
+		inputRows.add(inputRow);
+		
+		int gridy = gc.gridy;
+		
+		gc.gridx = 0;
+		add(inputRow.getAsientoField(), gc);
+
+		gc.gridx++;
+		add(inputRow.getFechaField(), gc);
+		gc.gridx++;
+		for (JComboBox combBox : inputRow.getDebeFields()) {
+			add(combBox, gc);
+			gc.gridy++;
+		}
+		if (gc.gridy > lastGridY) {
+			lastGridY = gc.gridy;
+		}
+		gc.gridy = gridy;
+		
+		gc.gridx++;
+		gc.gridx++;
+		for (JTextField importeField : inputRow.getImporte1Fields()) {
+			add(importeField, gc);
+			gc.gridy++;
+		}
+		if (gc.gridy > lastGridY) {
+			lastGridY = gc.gridy;
+		}
+		gc.gridy = gridy;
+		
+		gc.gridx++;
+		for (JComboBox combBox : inputRow.getHaberFields()) {
+			add(combBox, gc);
+			gc.gridy++;
+		}
+		if (gc.gridy > lastGridY) {
+			lastGridY = gc.gridy;
+		}
+		gc.gridy = gridy;
+		
+		gc.gridx++;
+		gc.gridx++;
+		for (JTextField importeField : inputRow.getImporte2Fields()) {
+			add(importeField, gc);
+			gc.gridy++;
+		}
+		if (gc.gridy > lastGridY) {
+			lastGridY = gc.gridy;
+		}
+		gc.gridy = gridy;
+		
+		gc.gridx++;
+		add(inputRow.getAsientoDef(), gc);
+		
+		gc.gridy = lastGridY;
+		
+		addButtons();
+		
+		this.revalidate();
+		
+	}
+	
+	public void removeInputRow() {
+		if (this.inputRows.size() > 0) {
+			removeLastRow();
+			inputRows.remove(inputRows.size()-1);
+			revalidate();
+		}
+	}
+	
+	public void addDebe() {
+		inputRows.get(inputRows.size()-1).addDebe();
+		removeButtons();
+		removeLastRow();
+		addLastRow();
+		addButtons();
+		revalidate();
+	}
+	
+	public void addHaber() {
+		inputRows.get(inputRows.size()-1).addHaber();
+		removeButtons();
+		removeLastRow();
+		addLastRow();
+		addButtons();
+		revalidate();
+	}
+	
+	private void removeLastRow() {
+		InputRow inputRow = inputRows.get(inputRows.size()-1);
+		remove(inputRow.getAsientoField());
+		for (JComboBox cb : inputRow.getDebeFields()) {
+			remove(cb);
+		}
+		for (JComboBox cb : inputRow.getHaberFields()) {
+			remove(cb);
+		}
+		remove(inputRow.getFechaField());
+		for (JTextField importeField : inputRow.getImporte1Fields()) {
+			remove(importeField);
+		}
+		for (JTextField importeField : inputRow.getImporte2Fields()) {
+			remove(importeField);
+		}
+		remove(inputRow.getAsientoDef());
+	}
+	
+	private void addLastRow() {
+		
+		removeButtons();
+		
+		InputRow inputRow = inputRows.get(inputRows.size()-1);
+		int lastGridY = gc.gridy;
+		int gridy = gc.gridy;
+		
+		gc.gridx = 0;
+		
+		add(inputRow.getAsientoField(), gc);
+				
+		gc.gridx++;
+		add(inputRow.getFechaField(), gc);
+		
+		gc.gridx++;
+		for (JComboBox combBox : inputRow.getDebeFields()) {
+			add(combBox, gc);
+			gc.gridy++;
+		}
+		if (gc.gridy > lastGridY) {
+			lastGridY = gc.gridy;
+		}
+		gc.gridy = gridy;
+		
+		gc.gridx++;
+		gc.gridx++;
+		for (JTextField importeField : inputRow.getImporte1Fields()) {
+			add(importeField, gc);
+			gc.gridy++;
+		}
+		if (gc.gridy > lastGridY) {
+			lastGridY = gc.gridy;
+		}
+		gc.gridy = gridy;
+		
+		gc.gridx++;
+		for (JComboBox combBox : inputRow.getHaberFields()) {
+			add(combBox, gc);
+			gc.gridy++;
+		}
+		if (gc.gridy > lastGridY) {
+			lastGridY = gc.gridy;
+		}
+		gc.gridy = gridy;
+		
+		gc.gridx++;
+		gc.gridx++;
+		for (JTextField importeField : inputRow.getImporte2Fields()) {
+			add(importeField, gc);
+			gc.gridy++;
+		}
+		if (gc.gridy > lastGridY) {
+			lastGridY = gc.gridy;
+		}
+		gc.gridy = gridy;
+		
+		gc.gridx++;
+		add(inputRow.getAsientoDef(), gc);
+		
+		gc.gridy = lastGridY;
+		
+		addButtons();
+		
+		this.revalidate();
+	}
+	
+	public void updateDef(List<String> asientos) {
+		for (InputRow inputRow : this.inputRows) {
+			inputRow.updateDef(asientos);
+		}
+		this.revalidate();
 	}
 	
 }

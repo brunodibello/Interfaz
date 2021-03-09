@@ -23,14 +23,12 @@ public class DefRowPanel extends JPanel {
 		setLayout(new GridBagLayout());
 		
 		gc = new GridBagConstraints();
-		gc.fill = GridBagConstraints.NONE;	
+//		gc.weightx = 1;
+//		gc.anchor = GridBagConstraints.LINE_START;
+//		gc.fill = GridBagConstraints.HORIZONTAL;
 		gc.gridy = 0;
-		gc.weightx = 1;
-		gc.weighty = 1;
-		gc.gridwidth = 1;
+
 		gc.gridx = 0;
-		gc.anchor = GridBagConstraints.LINE_START;
-		//gc.insets = new Insets(0, 0, 0, 0);
 		
 	}
 	
@@ -48,13 +46,12 @@ public class DefRowPanel extends JPanel {
 		int gridy = gc.gridy;
 		
 		gc.gridx = 0;
+		gc.gridwidth = 1;
 		
-		gc.insets = new Insets(0, 0, 0, 170);
 		add(defRow.getAsientoField(), gc);
-		
-		gc.insets = new Insets(0, 0, 0, 250);
-		
+				
 		gc.gridx++;
+		gc.gridwidth =2;
 		for (JComboBox combBox : defRow.getDebeFields()) {
 			add(combBox, gc);
 			gc.gridy++;
@@ -64,6 +61,7 @@ public class DefRowPanel extends JPanel {
 		}
 		gc.gridy = gridy;
 		
+		gc.gridx++;
 		gc.gridx++;
 		for (JComboBox combBox : defRow.getHaberFields()) {
 			add(combBox, gc);
@@ -119,11 +117,8 @@ public class DefRowPanel extends JPanel {
 		
 		gc.gridx = 0;
 		
-		gc.insets = new Insets(0, 0, 0, 170);
 		add(defRow.getAsientoField(), gc);
-		
-		gc.insets = new Insets(0, 0, 0, 250);
-		
+				
 		gc.gridx++;
 		for (JComboBox combBox : defRow.getDebeFields()) {
 			add(combBox, gc);
