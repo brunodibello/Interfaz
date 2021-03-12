@@ -1,6 +1,9 @@
 package app;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -15,6 +18,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
@@ -38,8 +42,11 @@ public class DefFrame extends JPanel {
 	public DefFrame() {
 		
 		asientoLabel = new JLabel("Asiento");
+		asientoLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
 		debeLabel = new JLabel("Debe");
+		debeLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
 		haberLabel = new JLabel("Haber");
+		haberLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
 		
 		removeRowBtn = new JButton("Remover Fila");
 		addRowBtn = new JButton("Agregar Fila");
@@ -93,6 +100,7 @@ public class DefFrame extends JPanel {
 		gc.weightx = 1;
 		
 		gc.anchor = GridBagConstraints.FIRST_LINE_START;
+		
 	
 		////////// LABELS //////////
 				
@@ -107,6 +115,19 @@ public class DefFrame extends JPanel {
 		add(haberLabel, gc);
 		gc.gridx++;
 		add(addHaberBtn, gc);
+		
+		gc.gridy++;
+		gc.gridwidth = 5;
+		gc.gridx=0;
+		gc.insets = new Insets(10,0,10,0);
+		gc.fill = GridBagConstraints.HORIZONTAL;
+		JSeparator sep = new JSeparator(JSeparator.HORIZONTAL);
+		sep.setBackground(Color.BLACK);
+		sep.setPreferredSize(new Dimension(5,1));
+		add(sep,  gc);
+		gc.fill = GridBagConstraints.NONE;
+		gc.gridwidth = 1;
+		gc.insets = new Insets(0,0,0,0);
 		
 		/////////// ROWS ///////////////
 		

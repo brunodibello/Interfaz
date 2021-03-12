@@ -1,6 +1,9 @@
 package app;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -14,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
@@ -44,11 +48,17 @@ public class InputFrame extends JPanel {
 	public InputFrame() {
 		
 		asientoLabel = new JLabel("Asiento");
+		asientoLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
 		fechaLabel = new JLabel("Fecha");
+		fechaLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
 		debeLabel = new JLabel("Debe");
+		debeLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
 		importe1Label = new JLabel("Importe");
+		importe1Label.setFont(new Font("Verdana", Font.PLAIN, 18));
 		haberLabel = new JLabel("Haber");
+		haberLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
 		importe2Label = new JLabel("Importe");
+		importe2Label.setFont(new Font("Verdana", Font.PLAIN, 18));
 		
 		confirmBtn = new JButton("Confirmar");
 		addRowBtn = new JButton("Agregar Fila");
@@ -130,6 +140,19 @@ public class InputFrame extends JPanel {
 				
 		gc.gridx++;
 		add(importe2Label, gc);
+		
+		gc.gridy++;
+		gc.gridwidth = 9;
+		gc.gridx=0;
+		gc.insets = new Insets(5,0,5,0);
+		gc.fill = GridBagConstraints.HORIZONTAL;
+		JSeparator sep = new JSeparator(JSeparator.HORIZONTAL);
+		sep.setBackground(Color.BLACK);
+		sep.setPreferredSize(new Dimension(5,1));
+		add(sep,  gc);
+		gc.fill = GridBagConstraints.NONE;
+		gc.gridwidth = 1;
+		gc.insets = new Insets(0,0,0,0);
 		
 		/////////// ROWS ///////////////
 		

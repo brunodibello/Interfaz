@@ -11,45 +11,29 @@ import javax.swing.JComboBox;
 
 import org.semanticweb.HermiT.Configuration;
 import org.semanticweb.HermiT.Reasoner;
+import org.semanticweb.HermiT.cli.CommandLine;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
 
 public class HermitHelper {
 	
 	private static OWLOntologyManager ontologyManager;
 	
-	private static void runHermit(Configuration config, OWLOntology ontology) {
-		Reasoner hermit = new Reasoner(config, ontology);
-        HashSet<InferenceType> inferences = new HashSet<InferenceType>();
-        inferences.add(InferenceType.CLASS_HIERARCHY);
-        hermit.precomputeInferences(inferences.toArray(new InferenceType[0]));
-	}
-	
 	private static OWLOntology getBaseOntology() {
 		try {
 			ontologyManager = OWLManager.createOWLOntologyManager();
 			URI base = new URI("file", System.getProperty("user.dir") + "/", null);
-			IRI iri = IRI.create((URI)base.resolve("../../../../Desktop/github/ProyGrado_Hermit_143456/ontologias/Prototipo/ont0.owl"));
+			//IRI iri = IRI.create((URI)base.resolve("../../../../Desktop/github/ProyGrado_Hermit_143456/ontologias/Prototipo/ont0.owl"));
+			IRI iri = IRI.create((URI)base.resolve("file:///C:/Users/Bruno/Documents/GitHub/Interfaz/resources/ont0.owl"));
 			return ontologyManager.loadOntology(iri);
 		} catch(Exception e) {
 			System.out.println("Error getting base Ontology");
+			e.printStackTrace();
 		}
 		return null;
-	}
-	
-	private static Configuration getConfiguration() {
-		Configuration config = new Configuration();
-        config.useDisjunctionLearning = true;
-        config.throwInconsistentOntologyException = true;
-        config.blockingSignatureCacheType = Configuration.BlockingSignatureCacheType.CACHED;
-        config.blockingStrategyType = Configuration.BlockingStrategyType.OPTIMAL;
-        config.directBlockingType = Configuration.DirectBlockingType.OPTIMAL;
-        config.existentialStrategyType = Configuration.ExistentialStrategyType.CREATION_ORDER;
-        return config;
 	}
 	
 	private static void modifyOntology(List<DefRow> defRows, List<InputRow> inputRows, OWLOntology ontology) {
@@ -363,13 +347,19 @@ public class HermitHelper {
 		}
 	}
 	
+	private static void runHermit() {
+		List<String> flags = new ArrayList<String>();
+		flags.add("-c");
+		flags.add("file:///C:/Users/Bruno/Documents/GitHub/Interfaz/modifiedOntology.owl");
+		CommandLine.main(flags.toArray(new String[2]));
+	}
+	
 	public static boolean runReasoner(List<DefRow> defRows, List<InputRow> inputRows) {
 		try {
             OWLOntology ontology = getBaseOntology();
             modifyOntology(defRows, inputRows, ontology);
             saveModifiedOntology(ontology);
-            Configuration config = getConfiguration();
-            runHermit(config, ontology);
+            runHermit();
             System.out.println("Ontology Consistente");
 		} catch (Exception e) {
 			System.out.println("Error preparing the ontology");

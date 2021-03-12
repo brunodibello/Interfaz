@@ -6,6 +6,7 @@
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      ontologyIRI="http://www.semanticweb.org/usuario/ontologies/2018/2/untitled-ontology-242">
+    <Prefix name="" IRI="http://www.semanticweb.org/usuario/ontologies/2018/2/untitled-ontology-242"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
@@ -15,13 +16,31 @@
         <Class IRI="D0"/>
     </Declaration>
     <Declaration>
+        <Class IRI="D1"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="DD00"/>
     </Declaration>
     <Declaration>
         <Class IRI="DD01"/>
     </Declaration>
     <Declaration>
+        <Class IRI="DD10"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="DD11"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="DH00"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="DH10"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="DH11"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="DH12"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Account"/>
@@ -87,13 +106,31 @@
         <NamedIndividual IRI="d0"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="d1"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="dd00"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="dd01"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="dd10"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="dd11"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="dh00"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="dh10"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="dh11"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="dh12"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#11111-Cash"/>
@@ -112,6 +149,54 @@
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#21111-Landlords"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#11111-Cash"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#commentDef"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#11311-RenterFee"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DetNotQualified"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Entry"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#11211-RenterDebt"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DetDef"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#EntryDef"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#11112-Bank"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#21111-Landlords"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Det"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#detailC"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#detailD"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#account"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#detailDefC"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#detailDefD"/>
     </Declaration>
     <SubClassOf>
         <Class IRI="D0"/>
@@ -135,6 +220,31 @@
         </ObjectAllValuesFrom>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="D1"/>
+        <Class IRI="#Entry"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="D1"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#detailC"/>
+            <ObjectUnionOf>
+                <Class IRI="DH10"/>
+                <Class IRI="DH11"/>
+                <Class IRI="DH12"/>
+            </ObjectUnionOf>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="D1"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#detailD"/>
+            <ObjectUnionOf>
+                <Class IRI="DD10"/>
+                <Class IRI="DD11"/>
+            </ObjectUnionOf>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="DD00"/>
         <Class IRI="#Det"/>
     </SubClassOf>
@@ -143,7 +253,27 @@
         <Class IRI="#Det"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="DD10"/>
+        <Class IRI="#Det"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="DD11"/>
+        <Class IRI="#Det"/>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="DH00"/>
+        <Class IRI="#Det"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="DH10"/>
+        <Class IRI="#Det"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="DH11"/>
+        <Class IRI="#Det"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="DH12"/>
         <Class IRI="#Det"/>
     </SubClassOf>
     <SubClassOf>
@@ -275,21 +405,18 @@
         </ObjectAllValuesFrom>
     </SubClassOf>
     <DisjointClasses>
-        <Annotation>
-            <Annotation>
-                <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-                <Literal>Generated by the OWL API (version 4.5.7) https://github.com/owlcs/owlapi on 11/9/20 6:42 PM</Literal>
-            </Annotation>
-            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>DisjointClasses(&lt;D0&gt;) replaced by DisjointClasses(&lt;D0&gt; owl:Thing)</Literal>
-        </Annotation>
         <Class IRI="D0"/>
-        <Class abbreviatedIRI="owl:Thing"/>
+        <Class IRI="D1"/>
     </DisjointClasses>
     <DisjointClasses>
         <Class IRI="DD00"/>
         <Class IRI="DD01"/>
+        <Class IRI="DD10"/>
+        <Class IRI="DD11"/>
         <Class IRI="DH00"/>
+        <Class IRI="DH10"/>
+        <Class IRI="DH11"/>
+        <Class IRI="DH12"/>
         <Class IRI="#DetNotQualified"/>
     </DisjointClasses>
     <DisjointClasses>
@@ -308,6 +435,10 @@
         <NamedIndividual IRI="d0"/>
     </ClassAssertion>
     <ClassAssertion>
+        <Class IRI="#EntryDef"/>
+        <NamedIndividual IRI="d1"/>
+    </ClassAssertion>
+    <ClassAssertion>
         <Class IRI="#DetDef"/>
         <NamedIndividual IRI="dd00"/>
     </ClassAssertion>
@@ -317,7 +448,27 @@
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="#DetDef"/>
+        <NamedIndividual IRI="dd10"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#DetDef"/>
+        <NamedIndividual IRI="dd11"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#DetDef"/>
         <NamedIndividual IRI="dh00"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#DetDef"/>
+        <NamedIndividual IRI="dh10"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#DetDef"/>
+        <NamedIndividual IRI="dh11"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#DetDef"/>
+        <NamedIndividual IRI="dh12"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="#Availability"/>
@@ -360,9 +511,17 @@
     </ClassAssertion>
     <DifferentIndividuals>
         <NamedIndividual IRI="d0"/>
+        <NamedIndividual IRI="d1"/>
         <NamedIndividual IRI="dd00"/>
         <NamedIndividual IRI="dd01"/>
+        <NamedIndividual IRI="dd10"/>
+        <NamedIndividual IRI="dd11"/>
         <NamedIndividual IRI="dh00"/>
+        <NamedIndividual IRI="dh10"/>
+        <NamedIndividual IRI="dh11"/>
+        <NamedIndividual IRI="dh12"/>
+        <NamedIndividual IRI="#11111-Cash"/>
+        <NamedIndividual IRI="#11112-Bank"/>
         <NamedIndividual IRI="#11211-RenterDebt"/>
         <NamedIndividual IRI="#11311-RenterFee"/>
         <NamedIndividual IRI="#21111-Landlords"/>
@@ -383,6 +542,31 @@
         <NamedIndividual IRI="dd01"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#detailDefC"/>
+        <NamedIndividual IRI="d1"/>
+        <NamedIndividual IRI="dh10"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#detailDefC"/>
+        <NamedIndividual IRI="d1"/>
+        <NamedIndividual IRI="dh11"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#detailDefC"/>
+        <NamedIndividual IRI="d1"/>
+        <NamedIndividual IRI="dh12"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#detailDefD"/>
+        <NamedIndividual IRI="d1"/>
+        <NamedIndividual IRI="dd10"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#detailDefD"/>
+        <NamedIndividual IRI="d1"/>
+        <NamedIndividual IRI="dd11"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
         <ObjectProperty IRI="#account"/>
         <NamedIndividual IRI="dd00"/>
         <NamedIndividual IRI="#11211-RenterDebt"/>
@@ -394,13 +578,43 @@
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#account"/>
+        <NamedIndividual IRI="dd10"/>
+        <NamedIndividual IRI="#11111-Cash"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#account"/>
+        <NamedIndividual IRI="dd11"/>
+        <NamedIndividual IRI="#11112-Bank"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#account"/>
         <NamedIndividual IRI="dh00"/>
+        <NamedIndividual IRI="#21111-Landlords"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#account"/>
+        <NamedIndividual IRI="dh10"/>
+        <NamedIndividual IRI="#11211-RenterDebt"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#account"/>
+        <NamedIndividual IRI="dh11"/>
+        <NamedIndividual IRI="#11311-RenterFee"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#account"/>
+        <NamedIndividual IRI="dh12"/>
         <NamedIndividual IRI="#21111-Landlords"/>
     </ObjectPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#commentDef"/>
         <NamedIndividual IRI="d0"/>
         <Literal>a1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#commentDef"/>
+        <NamedIndividual IRI="d1"/>
+        <Literal>a2</Literal>
     </DataPropertyAssertion>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#detailC"/>
@@ -491,6 +705,10 @@
         <Class IRI="D0"/>
     </MetaModelling>
     <MetaModelling>
+        <NamedIndividual IRI="d1"/>
+        <Class IRI="D1"/>
+    </MetaModelling>
+    <MetaModelling>
         <NamedIndividual IRI="dd00"/>
         <Class IRI="DD00"/>
     </MetaModelling>
@@ -499,8 +717,28 @@
         <Class IRI="DD01"/>
     </MetaModelling>
     <MetaModelling>
+        <NamedIndividual IRI="dd10"/>
+        <Class IRI="DD10"/>
+    </MetaModelling>
+    <MetaModelling>
+        <NamedIndividual IRI="dd11"/>
+        <Class IRI="DD11"/>
+    </MetaModelling>
+    <MetaModelling>
         <NamedIndividual IRI="dh00"/>
         <Class IRI="DH00"/>
+    </MetaModelling>
+    <MetaModelling>
+        <NamedIndividual IRI="dh10"/>
+        <Class IRI="DH10"/>
+    </MetaModelling>
+    <MetaModelling>
+        <NamedIndividual IRI="dh11"/>
+        <Class IRI="DH11"/>
+    </MetaModelling>
+    <MetaModelling>
+        <NamedIndividual IRI="dh12"/>
+        <Class IRI="DH12"/>
     </MetaModelling>
     <MetaRule>
         <ObjectProperty IRI="#detailDefC"/>

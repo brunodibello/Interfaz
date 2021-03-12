@@ -51,7 +51,7 @@ public class MainFrame extends JFrame {
 		if (consistent) {
 			JOptionPane.showMessageDialog(this, "Ontologia Consistente");
 		} else {
-			JOptionPane.showMessageDialog(this, "Ontologia Inconsistent");
+			JOptionPane.showMessageDialog(this, "Ontologia Inconsistente");
 		}
 	}
 

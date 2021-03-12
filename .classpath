@@ -1,19 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="target/classes" path="src">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="**" kind="src" output="target/classes" path="resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/api"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/apibinding"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/compatibility"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/contract"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/distribution"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/fixers"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/impl"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/oboformat"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/osgidistribution"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/parsers"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/rio"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/tools"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/org.semanticweb.hermit"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/owlapi-api"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/owlapi-apibinding"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/owlapi-compatibility"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/owlapi-contract"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/owlapi-distribution"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/owlapi-fixers"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/owlapi-impl"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/owlapi-oboformat"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/owlapi-osgidistribution"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/owlapi-parsers"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/owlapi-rio"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/owlapi-tools"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>
